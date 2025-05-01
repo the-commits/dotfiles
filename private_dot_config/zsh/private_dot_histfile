@@ -1,0 +1,9 @@
+source .config/zsh/.zshrc
+exit
+ll
+ls -la
+vim .zshrc .config/zsh/.zshrc
+vim .zshrc
+source .config/zsh/.zshrc
+ls -la
+exit
