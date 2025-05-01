@@ -1,5 +1,94 @@
-syntax on
-let configs = globpath($XDG_CONFIG_HOME . "/vim", "**/*.vim", 0, 1)
-for config in configs
-  execute 'source' fnameescape(config)
-endfor
+" ================================
+" 🌐 General settings
+" ================================
+set nocompatible              " Använd moderna Vim-beteenden
+filetype plugin indent on    " Aktivera plugins och smart indentering
+syntax on                    " Syntax highlighting
+set encoding=utf-8
+set number
+set relativenumber
+set ruler
+set hidden                   " Tillåt att byta buffert utan att spara
+
+" ================================
+" 🛠 UI / Quality of Life
+" ================================
+set mouse=a                 " Möjliggör musanvändning
+set showcmd
+set cursorline
+set wildmenu
+set wildmode=longest:full,full
+set wrap
+set linebreak
+set showmatch                " Visa matchande parentes
+set scrolloff=5              " Kontext runt cursorn
+
+" ================================
+" ⌨️ Key mappings
+" ================================
+let mapleader = " "
+
+" Reload vimrc
+nnoremap <leader>vr :source $MYVIMRC<CR>
+
+" Ctrl+Shift+% → vsplit
+nnoremap <C-%> :vsplit<CR>
+
+" Ctrl+Shift+- → split
+nnoremap <C-_> :split<CR>
+
+if executable('xclip')
+  " Kopiera till clipboard
+  nnoremap <Leader>y :w !xclip -selection clipboard<CR>
+
+  " Klistra in från clipboard
+  nnoremap <Leader>p :r !xclip -selection clipboard -o<CR>
+endif
+
+
+" ================================
+" 📝 Indentation
+" ================================
+set tabstop=2
+set shiftwidth=2
+set expandtab
+set autoindent
+set smartindent
+
+" ================================
+" 📁 File tree (NERDTree om du vill lägga till senare)
+" ================================
+" Placeholder: map <leader>n :NERDTreeToggle<CR>
+
+" ================================
+" 🔍 Searching
+" ================================
+set ignorecase
+set smartcase
+set incsearch
+set hlsearch
+nnoremap <silent> <Esc> :nohlsearch<CR> " ESC rensar sökhighlight
+
+" ========================================
+" 🧩 Ladda funktioner från autoload
+" ========================================
+call line_numbers#ToggleLineNumbers()
+
+" ========================================
+" 📄 Buffers & Fönster
+" ========================================
+set splitbelow              " Nya horisontella splits under
+set splitright              " Nya vertikala splits till höger
+
+" ========================================
+" 🧪 Plugins 
+" ========================================
+" Exempelvis: vim-plug, dein.vim, eller pack-funktionalitet kan aktiveras här
+
+" ========================================
+" 🧷 Terminal 
+" ========================================
+syntax enable
+set background=dark
+colorscheme desert          " Ändra efter smak
+
