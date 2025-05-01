@@ -1,0 +1,5 @@
+syntax on
+let configs = globpath($XDG_CONFIG_HOME . "/vim", "**/*.vim", 0, 1)
+for config in configs
+  execute 'source' fnameescape(config)
+endfor
