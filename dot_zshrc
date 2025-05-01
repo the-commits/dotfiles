@@ -6,5 +6,9 @@ fi
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
+if [[ -f ~/.zsh_alias ]];then
+	source ~/.zsh_alias
+fi	
+
 # Last line
 eval "$(starship init zsh)"
