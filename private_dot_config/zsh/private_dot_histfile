@@ -7,3 +7,25 @@ vim .zshrc
 source .config/zsh/.zshrc
 ls -la
 exit
+ll
+chezmoi add .config/zsh
+ll
+rm -rf .zshrc
+ll
+ls -la
+exit
+ll
+ll
+ll
+ll
+ll
+rm .zshrc
+ll
+vim
+exit
+vim ~/.config/zsh/.zshrc
+exit
+ll
+rm .zshrc
+rm .zshrc
+exit
