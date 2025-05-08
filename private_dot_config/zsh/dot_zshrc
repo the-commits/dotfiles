@@ -51,6 +51,7 @@ compinit -d "$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"
 # =====================================
 [[ -f $ZDOTDIR/.zsh_alias ]] && source $ZDOTDIR/.zsh_alias
 [[ -f $ZDOTDIR/.zsh_functions ]] && source $ZDOTDIR/.zsh_functions
+[[ -f $ZDOTDIR/.zsh_extras ]] && source $ZDOTDIR/.zsh_extras
 
 # =====================================
 # 🌟 Prompt via Starship
