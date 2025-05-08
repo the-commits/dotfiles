@@ -178,3 +178,6 @@ alias vimrc 'vim ~/.vimrc'
 if status --is-interactive && type -q fastfetch
    fastfetch --config neofetch.jsonc
 end
+
+## Standard cargo stuff
+source "$HOME/.cargo/env.fish"
