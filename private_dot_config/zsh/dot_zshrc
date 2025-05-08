@@ -1,59 +1,63 @@
-# ================================
+# ==================================
 # 🖥️  Ghostty shell integration
-# ================================
+# ==================================
 if [ -n "${GHOSTTY_RESOURCES_DIR}" ]; then
   builtin source "${GHOSTTY_RESOURCES_DIR}/shell-integration/zsh/ghostty-integration"
 fi
 
-# ================================
+# ==================================
 # 📦 XDG Base Directory Setup
-# ================================
+# ==================================
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_STATE_HOME="$HOME/.local/data"
 export XDG_DATA_HOME="$HOME/.local/share"
 export ZDOTDIR="$HOME/.config/zsh"
 
-# ================================
+# ==================================
 # 🌍 Language & Locale Settings
-# ================================
+# ==================================
 export LANG="sv_SE.UTF-8"
 export LC_ALL="sv_SE.UTF-8"
 
-# ================================
+# ==================================
 # 🛣️  PATH
-# ================================
+# ==================================
 export PATH="$HOME/bin:$HOME/.local/bin:/usr/local/bin:$HOME/.cargo/bin:$PATH"
 
-# ================================
+# ==================================
 # 📁 Ensure directories exist
-# ================================
+# ==================================
 mkdir -p "$XDG_CONFIG_HOME" "$XDG_CACHE_HOME" "$XDG_STATE_HOME" "$XDG_DATA_HOME" "$ZDOTDIR"
 mkdir -p "$XDG_CACHE_HOME/zsh" "$XDG_STATE_HOME/zsh"
 
-# ================================
+# ==================================
 # ⌨️  History configuration
-# ================================
+# ==================================
 HISTFILE="$XDG_STATE_HOME/zsh/history"
 HISTSIZE=99999
 SAVEHIST=99999
 setopt autocd beep extendedglob nomatch notify
 
-# ================================
+# ==================================
 # 🔁 Completion setup
-# ================================
+# ==================================
 autoload -Uz compinit
 zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/zcompcache"
 compinit -d "$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"
 
-# ================================
+# ==================================
 # 📄 Ladda egna alias och funktioner
-# ================================
+# ==================================
 [[ -f $ZDOTDIR/.zsh_alias ]] && source $ZDOTDIR/.zsh_alias
 [[ -f $ZDOTDIR/.zsh_functions ]] && source $ZDOTDIR/.zsh_functions
 
-# ================================
+# ==================================
 # 🌟 Prompt via Starship
-# ================================
+# ==================================
 eval "$(starship init zsh)"
 
+# ==================================
+# fzf key bindings and fuzzy completion
+# ==================================
+source <(fzf --zsh)
