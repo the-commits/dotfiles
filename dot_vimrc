@@ -113,4 +113,4 @@ set background=dark
 colorscheme synthwave84
 " transparent bg
 autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
-
+autocmd colorscheme * hi Normal guibg=NONE ctermbg=NONE
