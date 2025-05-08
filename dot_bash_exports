@@ -7,14 +7,6 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # PHP
 export PHP_INI_SCAN_DIR="$HOME/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
 
-#Android (Uncomment when installed)
-#export JAVA_HOME=/snap/android-studio/current/jbr
-#export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
-#export ANDROID_HOME="$HOME/Android/Sdk"
-#export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
-#export PATH=$PATH:$ANDROID_HOME/emulator
-#export PATH=$PATH:$ANDROID_HOME/platform-tools
-
 # cheat
 export CHEAT_USE_FZF=true
 
