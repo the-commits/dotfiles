@@ -22,7 +22,7 @@ set wrap
 set linebreak
 set showmatch                " Visa matchande parentes
 set scrolloff=5              " Kontext runt cursorn
-
+set timeoutlen=500           " Which buffer keystrokes in ms
 " ================================
 " ⌨️ Key mappings
 " ================================
@@ -45,7 +45,7 @@ if executable('xclip')
   nnoremap <Leader>p :r !xclip -selection clipboard -o<CR>
 endif
 
-
+nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 " ================================
 " 📝 Indentation
 " ================================
@@ -86,6 +86,7 @@ set splitright              " Nya vertikala splits till höger
 " ========================================
 " Exempelvis: vim-plug, dein.vim, eller pack-funktionalitet kan aktiveras här
 call plug#begin()
+  Plug 'liuchengxu/vim-which-key'
   Plug 'tpope/vim-sensible'
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-speeddating'
