@@ -63,3 +63,5 @@ eval "$(starship init zsh)"
 # =====================================
 source <(fzf --zsh)
 
+# Standard cargo
+. "$HOME/.cargo/env" 
