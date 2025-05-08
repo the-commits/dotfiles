@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# Funktion för att starta fzf och öppna vald fil i $EDITOR
+edit() {
+  local editor="${EDITOR:-vim}"  # Använd $EDITOR, fallback till vim om inte satt
+
+  # Kolla om vi är i ett Git-repo
+  if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    git ls-files | fzf --style full \
+      --border --padding 1,2 \
+      --tmux \
+      --border-label ' Edit ' --input-label ' Input ' --header-label ' File Type ' \
+      --preview 'fzf-preview.sh {}' \
+      --bind 'result:transform-list-label:
+        if [[ -z $FZF_QUERY ]]; then
+          echo " $FZF_MATCH_COUNT items "
+        else
+          echo " $FZF_MATCH_COUNT matches for [$FZF_QUERY] "
+        fi
+      ' \
+      --bind 'focus:transform-preview-label:[[ -n {} ]] && printf " Previewing [%s] " {}' \
+      --bind 'focus:+transform-header:file --brief {} || echo "No file selected"' \
+      --bind 'ctrl-r:change-list-label( Reloading the list )+reload(sleep 2; git ls-files)' \
+      --color 'border:#aaaaaa,label:#cccccc' \
+      --color 'preview-border:#9999cc,preview-label:#ccccff' \
+      --color 'list-border:#669966,list-label:#99cc99' \
+      --color 'input-border:#996666,input-label:#ffcccc' \
+      --color 'header-border:#6699cc,header-label:#99ccff' \
+      --bind "enter:become($editor {})"
+  else
+    fzf --tmux --style full \
+      --preview 'fzf-preview.sh {}' \
+      --bind 'focus:transform-header:file --brief {}' \
+      --bind "enter:become($editor {})"
+  fi
+}
+
+# Usage: rgfzf [<rg SYNOPSIS>]
+function rgfzf {
+  command rg --color=always --line-number --no-heading --smart-case "${*:-}" \
+  | command fzf -d':' --ansi \
+    --preview "command bat -p --color=always {1} --highlight-line {2}" \
+    --preview-window ~8,+{2}-5 \
+  | awk -F':' '{print $1}'
+}
