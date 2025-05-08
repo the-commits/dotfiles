@@ -67,11 +67,15 @@ set ignorecase
 set smartcase
 set incsearch
 set hlsearch
-nnoremap <silent> <Esc> :nohlsearch<CR> " ESC rensar sökhighlight
+
+" ESC rensar sökhighlight
+nnoremap <silent> <Esc> :nohlsearch<CR>
 
 " ========================================
 " 🧩 Ladda funktioner från autoload
 " ========================================
+
+" Relevanta nummer i insert mode
 call line_numbers#ToggleLineNumbers()
 
 " ========================================
