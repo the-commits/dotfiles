@@ -117,6 +117,13 @@ export EDITOR=/usr/bin/nvim
 # Vim keybindings
 set -o vi
 
+if [ -f ~/.bashrc_cat ]; then
+    . ~/.bashrc_cat
+fi
+
+if [ -f ~/.bashrc_garuda ]; then
+    . ~/.bashrc_garuda
+fi
 
 if [ -f ~/.bash_exports ]; then
     . ~/.bash_exports
