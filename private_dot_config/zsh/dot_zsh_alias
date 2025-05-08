@@ -26,6 +26,8 @@ alias fd='fdfind'
 alias ls='eza --icons'
 alias l='ls -lm1'
 alias d='duf'
+alias disk-usage='d'
+alias disk='disk-usage'
 
 # Lookups
 alias ipv4='curl https://icanhazip.com'
