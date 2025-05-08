@@ -1,2 +1,3 @@
 eval "$(/bin/brew shellenv)"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
