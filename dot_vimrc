@@ -89,7 +89,8 @@ call plug#end()
 " ========================================
 " 🧩 Ladda funktioner från autoload
 " ========================================
-
+" Keybindings from plugins
+" https://www.vim.org/scripts/script.php?script_id=1697
 " Relevanta nummer i insert mode
 call line_numbers#ToggleLineNumbers()
 call which_key_mapping#Init()
@@ -110,3 +111,6 @@ if has('termguicolors')
 endif
 set background=dark
 colorscheme synthwave84
+" transparent bg
+autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
+
