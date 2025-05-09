@@ -44,7 +44,7 @@ done
 
 # Standardkomprimering
 echo "🎚️ Komprimerar med standardinställningar..."
-ffmpeg -y -i "$outfile" -af "highpass=f=100,acompressor=threshold=-26dB:ratio=4:attack=50:release=300:makeup=6" "$compressed"
+ffmpeg -y -i "$outfile" -af "highpass=f=100,acompressor=threshold=-26dB:ratio=4:attack=50:release=300:makeup=4" "$compressed"
 
 echo "🔊 Spelar upp (komprimerad)..."
 paplay "$compressed"
@@ -69,7 +69,7 @@ if [[ "$save" == "j" || "$save" == "ja" ]]; then
     {
         echo "Datum: $(date)"
         echo "Originalfil: $final_orig"
-        echo "Filter: highpass=f=100,acompressor=threshold=-26dB:ratio=4:attack=50:release=300:makeup=6"
+        echo "Filter: highpass=f=100,acompressor=threshold=-26dB:ratio=4:attack=50:release=300:makeup=4"
     } > "$log_file"
 
 elif [[ "$save" == "k" ]]; then
@@ -85,11 +85,11 @@ elif [[ "$save" == "k" ]]; then
         case "$profile" in
             1)
                 profile_name="Podcast"
-                custom_af="highpass=f=100,acompressor=threshold=-28dB:ratio=6:attack=40:release=300:makeup=5"
+                custom_af="highpass=f=100,acompressor=threshold=-28dB:ratio=6:attack=40:release=300:makeup=4"
                 ;;
             2)
                 profile_name="Lo-fi Pop"
-                custom_af="highpass=f=120,acompressor=threshold=-20dB:ratio=3:attack=100:release=800:makeup=4"
+                custom_af="highpass=f=120,acompressor=threshold=-20dB:ratio=3:attack=100:release=800:makeup=3"
                 ;;
             3)
                 read -p "🛠️  Skriv dina egna inställningar för acompressor (utan highpass): " raw_af
