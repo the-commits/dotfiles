@@ -13,11 +13,13 @@ DISPLAY_2="HDMI-A-1"
 
 if $SCRIPT_DIR/check_connection.sh; then
   # eDP Playlist
-  WALLPAPER_1="https://www.youtube.com/watch?v=CxtIMm68Fbs&list=PLA3yWitmH0O8bTvH4UDTUuBVmN0ZDxZ6R"
+  WALLPAPER_1="$HOME/Video/Wallpapers/pink-tree.mp4.webm"
+  # WALLPAPER_1="https://www.youtube.com/watch?v=cjF-9In3hqU&list=PLA3yWitmH0O8bTvH4UDTUuBVmN0ZDxZ6R"
   # WALLPAPER_1="https://www.youtube.com/watch?v=CxtIMm68Fbs"
   # WALLPAPER_1="https://www.youtube.com/watch?v=cjF-9In3hqU"
 else
-  WALLPAPER_1="$HOME/Video/Wallpapers/Chill_Music_Depp_FOCUS_Inspiring_Mix.webm"
+  WALLPAPER_1="$HOME/Video/Wallpapers/pink-tree.mp4.webm"
+  # WALLPAPER_1="$HOME/Video/Wallpapers/Chill_Music_Depp_FOCUS_Inspiring_Mix.webm"
 fi
   
 WALLPAPER_2="$HOME/Video/Wallpapers/pink-tree.mp4.webm"
@@ -36,7 +38,7 @@ send_ipc() {
 }
 
 init() {
-    mpvpaper -o "--input-ipc-server=$MPV_SOCKET --volume=$VOLUME --panscan=1 --loop-playlist" \
+    mpvpaper -o "no-audio --input-ipc-server=$MPV_SOCKET --volume=$VOLUME --panscan=1 --loop-playlist shuffle" \
         "$DISPLAY_1" "$WALLPAPER_1" > /dev/null 2>&1 &
 
     mpvpaper -o "no-audio --panscan=1 --loop-playlist" \
