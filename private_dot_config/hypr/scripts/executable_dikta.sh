@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-timestamp=$(date +"%Y-%m-%dT%H:%M:%S%z")
+timestamp=$(date +"%Y-%m-%dT%H%M%S")
 outfile="/tmp/recording_$timestamp.wav"
 compressed="/tmp/recording_${timestamp}_comp.wav"
 
