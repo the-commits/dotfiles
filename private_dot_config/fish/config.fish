@@ -174,6 +174,11 @@ alias rip 'expac --timefmt="%Y-%m-%d %T" "%l\t%n %v" | sort | tail -200 | nl'
 alias v nvim
 alias vimrc 'vim ~/.vimrc'
 
+## Scripts
+alias "wallpaper-mute" "$HOME/.config/hypr/scripts/mpv_wallpaper.sh --volume 0" 
+alias "wallpaper-sound" "$HOME/.config/hypr/scripts/mpv_wallpaper.sh --volume 50" 
+alias "wallpaper-loud" "$HOME/.config/hypr/scripts/mpv_wallpaper.sh --volume 100" 
+
 ## Run fastfetch if session is interactive
 if status --is-interactive && type -q fastfetch
    fastfetch --config neofetch.jsonc
