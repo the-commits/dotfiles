@@ -1,7 +1,6 @@
-shell-integration = zsh
-command = "env ZDOTDIR=$HOME/.config/zsh /usr/bin/zsh --login"
-#fullscreen=true
-#macos-non-native-fullscreen=visible-menu
+shell-integration = fish
+command = /usr/bin/fish --login --interactive
+fullscreen=true
 clipboard-read = allow
 clipboard-write = allow
 copy-on-select = false
