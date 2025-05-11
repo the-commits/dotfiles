@@ -1,82 +1,87 @@
-" ================================
-" 🌐 General settings
-" ================================
-set nocompatible              " Använd moderna Vim-beteenden
-filetype plugin indent on    " Aktivera plugins och smart indentering
-syntax on                    " Syntax highlighting
+" ================================================
+" 🌐 Allmänna inställningar
+" ================================================
+set nocompatible
+filetype plugin indent on
+syntax on
 set encoding=utf-8
 set number
 set relativenumber
 set ruler
-set hidden                   " Tillåt att byta buffert utan att spara
+set hidden
+set tags=~/.vim/tags
 
-" ================================
-" 🛠 UI / Quality of Life
-" ================================
-set mouse=a                 " Möjliggör musanvändning
+" ================================================
+" 🛠️ UI / Livskvalitet
+" ================================================
+set mouse=a
 set showcmd
 set cursorline
 set wildmenu
 set wildmode=longest:full,full
 set wrap
 set linebreak
-set showmatch                " Visa matchande parentes
-set scrolloff=5              " Kontext runt cursorn
-set timeoutlen=500           " Which buffer keystrokes in ms
-" ================================
-" ⌨️ Key mappings
-" ================================
+set showmatch
+set scrolloff=5
+set timeoutlen=500
+set laststatus=2
+set statusline=\"%{expand('%:t')}\"\ %M\ line\ %l\ of\ %L\ --%P%%%%--\ col\ %c
+
+" ================================================
+" ⌨️ Tangentbordsmappningar
+" ================================================
 let g:mapleader="\<Space>"
 let g:maplocalleader=','
 
-" Vim specifikans
+" Vim-specifika mappningar (inte Neovim)
 if !has('nvim')
+  " Plats för Vim-specifika mappningar om det behövs
 endif
+
+" WhichKey-integration
 nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
 nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
-" Reload vimrc
+
+" Ladda om .vimrc
 nnoremap <leader>s :source $MYVIMRC \| :nohlsearch<CR>
 
+" Urklippshantering (om xclip finns)
 if executable('xclip')
-  " Kopiera till clipboard
   nnoremap <Leader>y :w !xclip -selection clipboard<CR>
-
-  " Klistra in från clipboard
   nnoremap <Leader>p :r !xclip -selection clipboard -o<CR>
 endif
 
-" ================================
-" 📝 Indentation
-" ================================
+" ================================================
+" 📝 Indentering
+" ================================================
 set tabstop=2
 set shiftwidth=2
 set expandtab
 set autoindent
 set smartindent
 
-" ================================
-" 📁 File tree (NERDTree om du vill lägga till senare)
-" ================================
-" Placeholder: map <leader>n :NERDTreeToggle<CR>
+" ================================================
+" 📁 Filträd (NERDTree etc.)
+" ================================================
+" map <leader>n :NERDTreeToggle<CR>
 
-" ================================
-" 🔍 Searching
-" ================================
+" ================================================
+" 🔍 Sökning
+" ================================================
 set ignorecase
 set smartcase
 set incsearch
 set hlsearch
 
-" ========================================
-" 📄 Buffers & Fönster
-" ========================================
-set splitbelow              " Nya horisontella splits under
-set splitright              " Nya vertikala splits till höger
+" ================================================
+" 📄 Buffertar & Fönster
+" ================================================
+set splitbelow
+set splitright
 
-" ========================================
-" 🧪 Plugins 
-" ========================================
-" Exempelvis: vim-plug, dein.vim, eller pack-funktionalitet kan aktiveras här
+" ================================================
+" 🧪 Plugins (vim-plug)
+" ================================================
 call plug#begin()
   Plug 'artanikin/vim-synthwave84'
   Plug 'liuchengxu/vim-which-key'
@@ -86,18 +91,20 @@ call plug#begin()
   Plug 'tpope/vim-repeat'
 call plug#end()
 
-" ========================================
+" ================================================
 " 🧩 Ladda funktioner från autoload
-" ========================================
-" Keybindings from plugins
-" https://www.vim.org/scripts/script.php?script_id=1697
-" Relevanta nummer i insert mode
+" ================================================
+" Keybindings från plugins
+" https://www.vim.org/scripts/script.php?script_id=1697 (line_numbers.vim)
 call line_numbers#ToggleLineNumbers()
-call which_key_mapping#Init()
 
-" ========================================
-" 🧷 Terminal 
-" ========================================
+" WhichKey-mappningar från autoload-filer
+call which_key_mapping_windows#Init()
+call which_key_mapping_tags#Init()
+
+" ================================================
+" 🧷 Terminalinställningar
+" ================================================
 syntax enable
 if exists('term')
   if has('xterm-256color')
@@ -111,6 +118,30 @@ if has('termguicolors')
 endif
 set background=dark
 colorscheme synthwave84
-" transparent bg
-autocmd vimenter * hi Normal guibg=NONE ctermbg=NONE
-autocmd colorscheme * hi Normal guibg=NONE ctermbg=NONE
+
+" Transparent bakgrund
+autocmd VimEnter * hi Normal guibg=NONE ctermbg=NONE
+autocmd ColorScheme * hi Normal guibg=NONE ctermbg=NONE
+
+" ================================================
+" 🔄 Automatisk Ctags för Vim-konfiguration
+" ================================================
+augroup AutoUpdateVimConfigTagsSimple
+  autocmd!
+  autocmd BufWritePost ~/.vimrc,${HOME}/.vim/**/* call s:UpdateVimConfigTagsSimple()
+augroup END
+
+function! s:UpdateVimConfigTagsSimple()
+  let l:ctags_command = 'ctags -R --exclude=.netrw_historyrc -f ~/.vim/tags ~/.vimrc ~/.vim'
+  let l:output = system(l:ctags_command)
+  if v:shell_error > 0
+    echohl ErrorMsg
+    echomerr "⛔ Fel: Ctags-uppdatering för Vim-konfig misslyckades!"
+    echohl None
+    echom "   Kommando som kördes: " . l:ctags_command
+    if !empty(l:output)
+      echom "   Output från ctags: " . l:output
+    endif
+  endif
+endfunction
+
