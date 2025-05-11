@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =7
+let g:netrw_dirhist_7='/home/the-commits/.config/fish/functions'
+let g:netrw_dirhist_6='/home/the-commits/.config/fish'
+let g:netrw_dirhist_5='/home/the-commits/.config/fish/functions'
+let g:netrw_dirhist_4='/home/the-commits/Dokument/Förvaringsplatser/Bazooka/api.prbx.com/laravel'
+let g:netrw_dirhist_3='/home/the-commits/.config/wpaperd'
+let g:netrw_dirhist_2='/home/the-commits/.vim/autoload'
+let g:netrw_dirhist_1='/home/the-commits/.vim'
+let g:netrw_dirhist_0='/home/the-commits'
+let g:netrw_dirhist_9='/home/the-commits/.vim/autoload'
+let g:netrw_dirhist_8='/home/the-commits/.config'
