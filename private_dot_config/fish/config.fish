@@ -184,7 +184,7 @@ alias "wallpaper-loud" "$HOME/.config/hypr/scripts/mpv_wallpaper.sh --volume 100
 
 ## Run fastfetch if session is interactive
 if status --is-interactive && type -q fastfetch
-   fastfetch --config neofetch.jsonc
+   fastfetch
 end
 
 ## Standard cargo stuff
