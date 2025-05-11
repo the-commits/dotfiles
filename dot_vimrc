@@ -26,10 +26,12 @@ set timeoutlen=500           " Which buffer keystrokes in ms
 " ================================
 " ⌨️ Key mappings
 " ================================
-let mapleader = " "
-
+let g:mapleader="\<Space>"
+let g:maplocalleader=','
+nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
+nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
 " Reload vimrc
-nnoremap <leader>vr :source $MYVIMRC<CR>
+nnoremap <leader>s :source $MYVIMRC \| :nohlsearch<CR>
 
 " Ctrl+Shift+% → vsplit
 nnoremap <C-%> :vsplit<CR>
@@ -45,7 +47,6 @@ if executable('xclip')
   nnoremap <Leader>p :r !xclip -selection clipboard -o<CR>
 endif
 
-nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 " ================================
 " 📝 Indentation
 " ================================
@@ -69,6 +70,12 @@ set incsearch
 set hlsearch
 
 " ========================================
+" 📄 Buffers & Fönster
+" ========================================
+set splitbelow              " Nya horisontella splits under
+set splitright              " Nya vertikala splits till höger
+
+" ========================================
 " 🧩 Ladda funktioner från autoload
 " ========================================
 
@@ -76,16 +83,11 @@ set hlsearch
 call line_numbers#ToggleLineNumbers()
 
 " ========================================
-" 📄 Buffers & Fönster
-" ========================================
-set splitbelow              " Nya horisontella splits under
-set splitright              " Nya vertikala splits till höger
-
-" ========================================
 " 🧪 Plugins 
 " ========================================
 " Exempelvis: vim-plug, dein.vim, eller pack-funktionalitet kan aktiveras här
 call plug#begin()
+  Plug 'artanikin/vim-synthwave84'
   Plug 'liuchengxu/vim-which-key'
   Plug 'tpope/vim-sensible'
   Plug 'tpope/vim-surround'
@@ -97,4 +99,15 @@ call plug#end()
 " 🧷 Terminal 
 " ========================================
 syntax enable
-
+if exists('term')
+  if has('xterm-256color')
+    set term=xterm-256color
+  elseif has('screen-256color')
+    set term=screen-256color
+  endif
+endif
+if has('termguicolors')
+  set termguicolors
+endif
+set background=dark
+colorscheme synthwave84
