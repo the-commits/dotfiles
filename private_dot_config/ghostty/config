@@ -1,5 +1,5 @@
 shell-integration = zsh
-command = /usr/bin/zsh --login
+command = "env ZDOTDIR=$HOME/.config/zsh /usr/bin/zsh --login"
 clipboard-read = allow
 clipboard-write = allow
 copy-on-select = false
