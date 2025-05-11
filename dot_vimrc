@@ -68,9 +68,6 @@ set smartcase
 set incsearch
 set hlsearch
 
-" ESC rensar sökhighlight
-nnoremap <silent> <Esc> :nohlsearch<CR>
-
 " ========================================
 " 🧩 Ladda funktioner från autoload
 " ========================================
@@ -88,11 +85,15 @@ set splitright              " Nya vertikala splits till höger
 " 🧪 Plugins 
 " ========================================
 " Exempelvis: vim-plug, dein.vim, eller pack-funktionalitet kan aktiveras här
+call plug#begin()
+  Plug 'tpope/vim-sensible'
+  Plug 'tpope/vim-surround'
+  Plug 'tpope/vim-speeddating'
+  Plug 'tpope/vim-repeat'
+call plug#end()
 
 " ========================================
 " 🧷 Terminal 
 " ========================================
 syntax enable
-set background=dark
-colorscheme desert          " Ändra efter smak
 
