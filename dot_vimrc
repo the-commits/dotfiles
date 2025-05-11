@@ -28,16 +28,14 @@ set timeoutlen=500           " Which buffer keystrokes in ms
 " ================================
 let g:mapleader="\<Space>"
 let g:maplocalleader=','
+
+" Vim specifikans
+if !has('nvim')
+endif
 nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
 nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
 " Reload vimrc
 nnoremap <leader>s :source $MYVIMRC \| :nohlsearch<CR>
-
-" Ctrl+Shift+% → vsplit
-nnoremap <C-%> :vsplit<CR>
-
-" Ctrl+Shift+- → split
-nnoremap <C-_> :split<CR>
 
 if executable('xclip')
   " Kopiera till clipboard
@@ -76,13 +74,6 @@ set splitbelow              " Nya horisontella splits under
 set splitright              " Nya vertikala splits till höger
 
 " ========================================
-" 🧩 Ladda funktioner från autoload
-" ========================================
-
-" Relevanta nummer i insert mode
-call line_numbers#ToggleLineNumbers()
-
-" ========================================
 " 🧪 Plugins 
 " ========================================
 " Exempelvis: vim-plug, dein.vim, eller pack-funktionalitet kan aktiveras här
@@ -94,6 +85,14 @@ call plug#begin()
   Plug 'tpope/vim-speeddating'
   Plug 'tpope/vim-repeat'
 call plug#end()
+
+" ========================================
+" 🧩 Ladda funktioner från autoload
+" ========================================
+
+" Relevanta nummer i insert mode
+call line_numbers#ToggleLineNumbers()
+call which_key_mapping#Init()
 
 " ========================================
 " 🧷 Terminal 
