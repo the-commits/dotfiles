@@ -1,4 +1,5 @@
 shell-integration = zsh
+command = /usr/bin/zsh --login
 clipboard-read = allow
 clipboard-write = allow
 copy-on-select = false
