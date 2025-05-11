@@ -1,0 +1,99 @@
+# Ghostty shell integration for Bash. This should be at the top of your bashrc!
+if [ -n "${GHOSTTY_RESOURCES_DIR}" ]; then
+    builtin source "${GHOSTTY_RESOURCES_DIR}/shell-integration/bash/ghostty.bash"
+fi
+export LANG="sv_SE.UTF-8"
+export LC_ALL="sv_SE.UTF-8"
+
+# Definiera XDG_CONFIG_HOME
+export XDG_CONFIG_HOME="$HOME/.config"
+
+# ~/.bashrc: executed by bash(1) for non-login shells.
+# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+# for examples
+
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+# --- HISTORIK & MILJÖVÄRDE ---
+HISTCONTROL=ignoreboth        # Don't put duplicate lines or lines starting with space in the history
+shopt -s histappend           # Append to the history file, don't overwrite it
+HISTSIZE=1000                 # Number of commands to remember
+HISTFILESIZE=2000             # Max size of history file
+shopt -s checkwinsize         # Check window size after each command
+
+# --- ALIASER ---
+# General aliases
+alias ls='ls --color=auto'
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+alias gs='git status'
+alias ga='git add'
+alias gc='git commit'
+alias gco='git checkout'
+alias gd='git diff'
+alias gpo='git push origin'
+
+# --- PROMPTEN ---
+# Git branch i prompten
+parse_git_branch() {
+    git branch 2>/dev/null | grep '*' | sed 's/* \(.*\)/ (\1)/'
+}
+
+# Färgglad prompt med Git-information om det finns
+PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(parse_git_branch)\$ '
+
+# --- PROGRAM- OCH KÖRNINGSTILLSTÄLLNINGAR ---
+export EDITOR='vim'          # Definiera standardeditor
+export PAGER='less'          # Definiera standardpager
+
+# --- SYSTEMSPECIFIKA KONFIGURATIONER ---
+if [ -f /etc/os-release ]; then
+    . /etc/os-release
+    if [ "$ID" == "ubuntu" ]; then
+        # Specifik konfiguration för Ubuntu
+        export PATH=$PATH:/opt/some-ubuntu-tool
+    fi
+fi
+
+# --- FÖRBÄTTRAD HISTORIKHANTERING ---
+# Lägg till tidsstämplar till historik
+export HISTTIMEFORMAT="%F %T "
+
+# --- FÖRBÄTTRAD LESS-HANTERING ---
+# Förbättra hantering av mindre textfiler
+export LESS="-RFX"  # Färger, inte hoppa till slutet, inte skapa en bakgrundspost
+
+# --- ALIASER FÖR LÅNGVARIGA KOMMANDON ---
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+# --- LADDAR EXTRA KONFIGURATIONER ---
+# Ladda extra alias från ~/.bash_aliases
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# --- PROGAMMERBAR KOMPLETION ---
+# Enable programmable completion features (you don't need to enable this, if it's already enabled in /etc/bash.bashrc and /etc/profile sources /etc/bash.bashrc)
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
+# --- SPECIFIK UTRUSTNING FÖR RUST ---
+. "$HOME/.cargo/env"
+
+# --- GÖR MINIMALA TIDIGARE INITIERINGAR ---
+# Don't make it a login shell if not needed
+if [ -z "$SHELL" ] || [[ ! "$SHELL" =~ "zsh" ]]; then
+    echo "Zsh är inte aktiv, kör bash-konfiguration."
+    export SHELL='/bin/bash'
+fi
+
