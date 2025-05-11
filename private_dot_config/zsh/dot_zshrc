@@ -1,0 +1,46 @@
+# Ghostty shell integration for Bash. This should be at the top of your bashrc!
+if [ -n "${GHOSTTY_RESOURCES_DIR}" ]; then
+    builtin source "${GHOSTTY_RESOURCES_DIR}/shell-integration/zsh/ghostty-integration"
+fi
+# If you come from bash you might have to change your $PATH.
+export PATH="$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
+# Environment variables
+# https://wiki.archlinux.org/title/XDG_Base_Directory
+export XDG_CONFIG_HOME=$HOME/.config
+export XDG_CACHE_HOME=$HOME/.cache
+export XDG_STATE_HOME=$HOME/.local/data
+export XDG_DATA_HOME=$HOME/.local/share
+export ZDOTDIR=$HOME/.config/zsh
+mkdir -p {$XDG_CONFIG_HOME,$XDG_CACHE_HOME,$XDG_STATE_HOME,$XDG_DATA_HOME,$ZDOTDIR}
+
+# Use XDG dirs for completion and history files
+[ -d "$XDG_STATE_HOME"/zsh ] || mkdir -p "$XDG_STATE_HOME"/zsh
+HISTFILE="$XDG_STATE_HOME"/zsh/history
+[ -d "$XDG_CACHE_HOME"/zsh ] || mkdir -p "$XDG_CACHE_HOME"/zsh
+zstyle ':completion:*' cache-path "$XDG_CACHE_HOME"/zsh/zcompcache
+compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-$ZSH_VERSION
+
+# Lines configured by zsh-newuser-install
+HISTFILE=$ZDOTDIR/.histfile
+HISTSIZE=99999
+SAVEHIST=99999
+setopt autocd beep extendedglob nomatch notify
+# End of lines configured by zsh-newuser-install
+# The following lines were added by compinstall
+zstyle :compinstall filename '/home/tjenamors/.config/zsh/.zshrc'
+
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall
+
+if [[ -f $ZDOTDIR/.zsh_alias ]];then
+	source $ZDOTDIR/.zsh_alias
+fi	
+
+if [[ -f $ZDOTDIR/.zsh_functions ]];then
+	source $ZDOTDIR/.zsh_functions
+fi	
+
+# Must be the last line
+eval "$(starship init zsh)"
