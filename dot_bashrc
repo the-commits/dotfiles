@@ -135,7 +135,7 @@ fi
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 if command -v fzf >/dev/null 2>&1; then
     # Set up fzf key bindings and fuzzy completion
-    eval "$(fzf)"
+    eval "$(fzf --bash)"
     # Alt+S
     # bind -x '"\eS": search'
 fi
@@ -144,3 +144,4 @@ fi
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+. "$HOME/.cargo/env"
