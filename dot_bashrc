@@ -125,6 +125,10 @@ if [ -f ~/.bashrc_garuda ]; then
     . ~/.bashrc_garuda
 fi
 
+if [ -f ~/.bash_alias ]; then
+    . ~/.bash_alias
+fi
+
 if [ -f ~/.bash_exports ]; then
     . ~/.bash_exports
 fi

@@ -1,5 +1,9 @@
 # PATH
 export PATH="$HOME/.local/bin:$PATH"
+# Secrets
+if [[ -f $HOME/.secrets ]];then
+	source $HOME/.secrets
+fi
 
 if [[ -d "$HOME/.cargo" ]];then
   export PATH="$HOME/.cargo/bin:$PATH"
@@ -14,10 +18,8 @@ fi
 # PHP
 export PHP_INI_SCAN_DIR="$HOME/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
 
-# cheat
+# Cheat
 export CHEAT_USE_FZF=true
 
-# Secrets
-if [[ -f $HOME/.secrets ]];then
-	source $HOME/.secrets
-fi
+# Docker
+export DOCKER_HOST="unix:///var/run/docker.sock"
