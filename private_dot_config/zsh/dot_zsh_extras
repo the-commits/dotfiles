@@ -1,10 +1,10 @@
 if [[ -f /bin/brew ]];then
 	eval "$(/bin/brew shellenv)"
 fi
-if [[ -d /home/linuxbrew/]];then
+if [[ -d /home/linuxbrew ]];then
 	eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
-if command -e brew 2>&1 >/dev/null
+if command -v brew 2>&1 >/dev/null
 then
   source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 fi
