@@ -1,16 +1,15 @@
 * {
     border: none;
     font-family: "JetBrainsMono";
-    font-size: 14px;
+    font-size: 16px;
 }
 
 window#waybar {
-
-    background-color: rgba(0, 0, 0, 0.65);
+    background-color: rgba(25, 40, 82, 0.35);
     color: #ffffff;
     transition-property: background-color;
     transition-duration: .5s;
-    border-radius: 10px;
+    border-radius: 6px;
 }
 
 window#waybar.hidden {
@@ -18,16 +17,14 @@ window#waybar.hidden {
 }
 
 #workspaces button {
-    padding: 0px;
-    margin: 4px 0 6px 0;
+    padding: 2px;
+    margin: 4px;
     background-color: transparent;
     color: #ffffff;
     min-width: 36px;
 }
 
 #workspaces button.active {
-    padding: 0 0 0 0;
-    margin: 4px 0 6px 0;
     min-width: 36px;
 }
 
@@ -62,15 +59,15 @@ window#waybar.hidden {
 #custom-power,
 #custom-updates,
 #language {
-    padding: 0px 3px;
-    margin: 4px 3px 5px 3px;
+    padding: 2px;
+    margin: 4px;
     color: #ffffff;
     background-color:transparent;
 }
 
 #window,
 #workspaces {
-    border : solid 1px white ;
+    border : dotted 1px white ;
     border-radius: 100px;
 }
 
@@ -171,13 +168,6 @@ label:focus {
     border-radius : 30px;
 }
 
-#idle_inhibitor {
-    background-color: #343434;
-    border-radius: 15px;
-}
-#custom-keyboard-layout{
-    color : red;
-}
 #custom-network_traffic{
     color : orange;
 }
