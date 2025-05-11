@@ -8,7 +8,7 @@ function vim_replace
     set replacement $argv[2]
     set file_pattern $argv[3]
 
-    for file in (find . -name "$file_pattern")
+    for file in (fd --type f --glob "$file_pattern")
         echo "Processing file: $file"
         vim -c "argdo %s/$pattern/$replacement/gc" -c 'wq' $file
     end

@@ -171,8 +171,11 @@ alias jctl 'journalctl -p 3 -xb'
 alias rip 'expac --timefmt="%Y-%m-%d %T" "%l\t%n %v" | sort | tail -200 | nl'
 
 ## Neovim and Vim
-alias v nvim
+alias v nvim 
 alias vimrc 'vim ~/.vimrc'
+
+## fzf
+alias search "fzf --preview 'cat {}' --select-1"
 
 ## Scripts
 alias "wallpaper-mute" "$HOME/.config/hypr/scripts/mpv_wallpaper.sh --volume 0" 
