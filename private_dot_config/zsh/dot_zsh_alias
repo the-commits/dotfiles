@@ -1,1 +1,32 @@
 alias ll="ls -la"
+
+# NeoVim
+alias nvim_kickstart='NVIM_APPNAME="nvim-kickstart" nvim'
+alias nvim_lazyvim='NVIM_APPNAME="nvim-lazyvim" nvim'
+
+# Laravel
+alias sail='sh $([ -f sail ] && echo sail || echo vendor/bin/sail)'
+alias pint='sh $([ -f pint ] && echo pint || echo vendor/bin/pint)'
+
+# Godot
+alias godot_sharp='/home/the-commits/.local/bin/Godot_v4.3-stable_mono_linux_x86_64/Godot_v4.3-stable_mono_linux.x86_64'
+
+# apt-get to apt-fast
+alias apt-get='apt-fast'
+alias apt='apt-get'
+alias iny='sudo apt-get install -y'
+
+# cheat.sh
+alias cheat='cht.sh --mode=auto'
+
+# Core Utils
+alias cat='batcat'
+alias du='dust --print-errors'
+alias fd='fdfind'
+alias ls='eza --icons'
+alias l='ls -lm1'
+alias d='duf'
+
+# Lookups
+alias ipv4='curl https://icanhazip.com'
+alias ipv6='curl https://ipv6.icanhazip.com'
