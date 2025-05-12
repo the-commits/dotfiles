@@ -4,9 +4,9 @@
         "height": 15,
         "padding": {
             "top": 5,
-            "left": 3
+            "left": 5
         },
-        "source": "~/.config/fastfetch/img/logo.png"
+        "source": "~/.config/fastfetch/img/skeletor.png"
     },
     "modules": [
         "break",
