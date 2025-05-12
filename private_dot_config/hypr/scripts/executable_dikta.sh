@@ -1,9 +1,15 @@
 #!/usr/bin/env bash
 
+threads=16
+language="sv"
+model="${HOME}/.local/bin/ggml-large-v3.bin"
 timestamp=$(date +"%Y-%m-%dT%H%M%S")
 outfile="/tmp/recording_$timestamp.wav"
 compressed="/tmp/recording_${timestamp}_comp.wav"
+base_dir="$HOME/Dokument/Dikteringar/${timestamp}"
+transcribe_file="$base_dir/recording"
 
+mkdir -p $base_dir
 echo "🎙️ Startar inspelning... Tryck 'q' för att avsluta."
 
 # Kontrollera att vi kör i tmux
@@ -53,10 +59,9 @@ read -p "💾 Vill du spara inspelningen? [j/N/k för filtermeny]: " save
 save=${save,,}
 
 if [[ "$save" == "j" || "$save" == "ja" ]]; then
-    mkdir -p "$HOME/Musik/Dikteringar"
-    final_orig="$HOME/Musik/Dikteringar/recording_${timestamp}.wav"
-    final_comp="$HOME/Musik/Dikteringar/recording_${timestamp}_comp.wav"
-    log_file="$HOME/Musik/Dikteringar/recording_${timestamp}.log"
+    final_orig="$base_dir/recording.wav"
+    final_comp="$base_dir/recording_comp.wav"
+    log_file="$base_dir/recording.log"
 
     mv "$outfile" "$final_orig"
     mv "$compressed" "$final_comp"
@@ -70,10 +75,22 @@ if [[ "$save" == "j" || "$save" == "ja" ]]; then
         echo "Datum: $(date)"
         echo "Originalfil: $final_orig"
         echo "Filter: highpass=f=100,acompressor=threshold=-26dB:ratio=4:attack=50:release=300:makeup=4"
+        echo "Skapar transriberings fil: $transcribe_file"
+        
+        /usr/bin/whisper-cli \
+        -t $threads \
+        -ojf \
+        -otxt \
+        -of $transcribe_file \
+        -np \
+        -pc \
+        -m $model \
+        -l $language \
+        $final_comp
+
     } > "$log_file"
 
 elif [[ "$save" == "k" ]]; then
-    mkdir -p "$HOME/Musik/Dikteringar"
 
     while true; do
         echo -e "\n📦 Välj filterprofil:"
@@ -112,9 +129,9 @@ elif [[ "$save" == "k" ]]; then
         save_custom=${save_custom,,}
 
         if [[ "$save_custom" == "j" || "$save_custom" == "ja" ]]; then
-            final_orig="$HOME/Musik/Dikteringar/recording_${timestamp}.wav"
-            final_custom="$HOME/Musik/Dikteringar/recording_${timestamp}_${profile_name}.wav"
-            log_file="$HOME/Musik/Dikteringar/recording_${timestamp}.log"
+            final_orig="$base_dir/recording.wav"
+            final_custom="$base_dir/recording_${profile_name}.wav"
+            log_file="$base_dir/recording.log"
 
             mv "$outfile" "$final_orig"
             mv "$custom_out" "$final_custom"
@@ -129,6 +146,18 @@ elif [[ "$save" == "k" ]]; then
                 echo "Originalfil: $final_orig"
                 echo "Filterprofil: $profile_name"
                 echo "Filter: $custom_af"
+                echo "Skapar transriberings fil: $transcribe_file"
+                
+                /usr/bin/whisper-cli \
+                -t $threads \
+                -ojf \
+                -otxt \
+                -of $transcribe_file \
+                -np \
+                -pc \
+                -m $model \
+                -l $language \
+                $final_custom
             } > "$log_file"
             break
 
