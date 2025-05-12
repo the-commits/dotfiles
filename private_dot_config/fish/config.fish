@@ -182,6 +182,9 @@ alias "wallpaper-mute" "$HOME/.config/hypr/scripts/mpv_wallpaper.sh --volume 0"
 alias "wallpaper-sound" "$HOME/.config/hypr/scripts/mpv_wallpaper.sh --volume 50" 
 alias "wallpaper-loud" "$HOME/.config/hypr/scripts/mpv_wallpaper.sh --volume 100" 
 
+## Commands
+alias "sunlight" "daylight --latitude 59.5636 --longitude 16.2304 --timezone Europe/Stockholm --date $(date +%Y-%m-%d)"
+
 ## Run fastfetch if session is interactive
 if status --is-interactive && type -q fastfetch
    fastfetch
