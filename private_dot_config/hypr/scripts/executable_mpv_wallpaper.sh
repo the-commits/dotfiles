@@ -15,10 +15,11 @@ if $SCRIPT_DIR/check_connection.sh; then
   # eDP Playlist
   WALLPAPER_1="https://www.youtube.com/watch?v=cjF-9In3hqU&list=PLA3yWitmH0O8bTvH4UDTUuBVmN0ZDxZ6R"
 else
-  WALLPAPER_1="$HOME/Video/Wallpapers/pink-tree.mp4.webm"
+  WALLPAPER_1="$HOME/Video/Wallpapers/short-pink-tree.webm"
+  VOLUME="0"
 fi
   
-WALLPAPER_2="$HOME/Video/Wallpapers/pink-tree.mp4.webm"
+WALLPAPER_2="$HOME/Video/Wallpapers/short-pink-tree.webm"
 
 # === Funktioner ===
 load_volume() {
