@@ -83,6 +83,7 @@ set splitright
 " 🧪 Plugins (vim-plug)
 " ================================================
 call plug#begin()
+  Plug 'vimwiki/vimwiki'
   Plug 'artanikin/vim-synthwave84'
   Plug 'liuchengxu/vim-which-key'
   Plug 'tpope/vim-sensible'
