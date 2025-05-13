@@ -185,6 +185,7 @@ alias "wallpaper-loud" "$HOME/.config/hypr/scripts/mpv_wallpaper.sh --volume 100
 
 ## Commands
 alias "sunlight" "daylight --latitude 59.5636 --longitude 16.2304 --timezone Europe/Stockholm --date $(date +%Y-%m-%d)"
+alias "phpstan" "docker run -v $PWD:/app --rm ghcr.io/phpstan/phpstan"
 
 ## Run fastfetch if session is interactive
 if status --is-interactive && type -q fastfetch
