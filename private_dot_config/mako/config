@@ -1,4 +1,7 @@
-[app-name="KDE-anslut"]
+[summary~="klippbordet"]
+invisible=1
+
+[summary~="clipboard"]
 invisible=1
 
 [mode=do-not-disturb]
