@@ -1,3 +1,9 @@
+[app-name="KDE-anslut"]
+invisible=1
+
+[mode=do-not-disturb]
+invisible=1
+
 anchor=bottom-right
 font=monospace 10
 background-color=#000000
@@ -13,6 +19,4 @@ group-by=summary
 icons=1
 
 [grouped]
-format=<b>%s</b>\n%b
-
-
+format=<h1>%a</h1><b>%s</b>\n%b
