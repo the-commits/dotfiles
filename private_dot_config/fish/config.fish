@@ -5,8 +5,12 @@ set VIRTUAL_ENV_DISABLE_PROMPT "1"
 set -x SHELL /usr/bin/fish
 
 # Use bat for man pages
-set -xU MANPAGER "sh -c 'col -bx | bat -l man -p'"
-set -xU MANROFFOPT "-c"
+#set -xU MANPAGER "sh -c 'col -bx | bat -l man -p'"
+#set -xU MANROFFOPT "-c"
+
+# Use NeoVim for man pages
+set -xU MANPAGER "nvim +Man!"
+
 
 # Hint to exit PKGBUILD review in Paru
 set -x PARU_PAGER "less -P \"Press 'q' to exit the PKGBUILD review.\""
