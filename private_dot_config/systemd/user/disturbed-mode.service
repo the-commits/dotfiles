@@ -1,0 +1,7 @@
+[Unit]
+Description=Execute the disturbed-mode.sh script for the-commits
+After=graphical-session.target
+
+[Service]
+Type=oneshot
+ExecStart=%h/.config/hypr/scripts/disturbed-mode.sh
