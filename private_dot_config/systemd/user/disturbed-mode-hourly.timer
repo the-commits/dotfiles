@@ -1,0 +1,10 @@
+[Unit]
+Description=Run disturbed-mode.sh for the-commits hourly on weekdays (07:00-19:00)
+
+[Timer]
+OnCalendar=Mon..Fri 07..19:00:00
+Persistent=true
+Unit=disturbed-mode.service
+
+[Install]
+WantedBy=timers.target
