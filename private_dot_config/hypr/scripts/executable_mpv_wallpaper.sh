@@ -3,7 +3,6 @@
 # === Konfiguration ===
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 VOLUME_FILE="$SCRIPT_DIR/.mpv_wallpaper_volume"
-CHAPTER_FILE="$SCRIPT_DIR/.mpv_wallpaper_chapter"
 MPV_SOCKET="/tmp/mpvpaper_socket"
 DEFAULT_VOLUME=50
 STEP=5
@@ -34,7 +33,6 @@ save_volume() {
 
 update_volume() {
   # === Volymhantering om IPC är aktiv ===
-  $VOLUME=$1
   [[ $VOLUME -gt 100 ]] && VOLUME=100
   [[ $VOLUME -lt 0 ]] && VOLUME=0
 
@@ -43,23 +41,21 @@ update_volume() {
 }
 
 load_chapter() {
-    [[ -f "$CHAPTER_FILE" ]] && CHAPTER=$(<"$CHAPTER_FILE") || CHAPTER=$DEFAULT_CHAPTER
-}
-
-save_chapter() {
-    echo "$CHAPTER" > "$CHAPTER_FILE"
+    CHAPTER=$(get_ipc '{ "command": ["get_property", "chapter"] }') || CHAPTER=$DEFAULT_CHAPTER
 }
 
 update_chapter() {
-  $CHAPTER=$1
   [[ $CHAPTER -lt 0 ]] && CHAPTER=0
 
-  save_chapter
   send_ipc '{ "command": ["set_property", "chapter", '$CHAPTER'] }'
 }
 
 send_ipc() {
-    [[ -S "$MPV_SOCKET" ]] && echo "$1" | socat - "$MPV_SOCKET" > /dev/null 2>&1
+    [[ -S "$MPV_SOCKET" ]] && echo "$1" | socat - "$MPV_SOCKET" > /dev/null 1>&1
+}
+
+get_ipc() {
+    [[ -S "$MPV_SOCKET" ]] && echo "$1" | socat - "$MPV_SOCKET" | jq .data
 }
 
 init() {
@@ -72,7 +68,6 @@ init() {
 
 # === Argumenthantering ===
 load_volume
-load_chapter
 
 case "$1" in
     --start)
