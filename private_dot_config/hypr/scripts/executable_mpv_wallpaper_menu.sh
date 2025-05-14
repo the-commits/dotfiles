@@ -1,24 +1,33 @@
 #!/usr/bin/env bash
 
-MPV_SOCKET="/tmp/mpvpaper_socket"
+VIDEO_PATH="$HOME/Video/Wallpapers/neon-city-music.webm"
+MPV_WALLPAPER_SCRIPT="$HOME/.config/hypr/scripts/mpv_wallpaper.sh"
 
-if [[ ! -S "$MPV_SOCKET" ]]; then
-    echo "mpv IPC-socket saknas. Är mpvpaper igång?" >&2
+if [[ ! -f "$MPV_WALLPAPER_SCRIPT" ]]; then
+    echo "Kunde inte hitta mpv_wallpaper.sh på: $MPV_WALLPAPER_SCRIPT" >&2
     exit 1
 fi
 
-CHAPTERS_JSON=$(echo '{ "command": ["get_property", "chapters"] }' | socat - "$MPV_SOCKET")
-
+CHAPTERS_JSON=$(ffprobe -v quiet -print_format json -show_chapters "$VIDEO_PATH")
 if [[ -z "$CHAPTERS_JSON" || "$CHAPTERS_JSON" == *"error"* ]]; then
-    echo "Inga kapitel hittades." >&2
+    echo "Inga kapitel hittades i: $VIDEO_PATH" >&2
     exit 1
 fi
 
-CHAPTERS=$(echo "$CHAPTERS_JSON" | jq -r '.data[] | "\(.title) (\(.start))"' )
-SELECTED=$(echo "$CHAPTERS" | wofi --dmenu -p "Välj kapitel")
-START_TIME=$(echo "$SELECTED" | grep -oP '\(\K[0-9.]+(?=\))')
+TITLES_ARRAY=$(echo "$CHAPTERS_JSON" | jq -r '.chapters[].tags.title')
 
-if [[ -n "$START_TIME" ]]; then
-    echo '{ "command": ["seek", '"$START_TIME"', "absolute"] }' | socat - "$MPV_SOCKET" > /dev/null 2>&1
+if [[ -z "$TITLES_ARRAY" ]]; then
+    echo "Kunde inte extrahera några titlar." >&2
+    exit 1
 fi
 
+SELECTED_TITLE=$(echo "$TITLES_ARRAY" | wofi --dmenu -p "Välj kapitel")
+
+if [[ -n "$SELECTED_TITLE" ]]; then
+    CHAPTER_INDEX=$(echo "$TITLES_ARRAY" | awk -v title="$SELECTED_TITLE" '$0 == title {print NR; exit}')
+
+    if [[ -n "$CHAPTER_INDEX" ]]; then
+        CHAPTER_NUMBER=$((CHAPTER_INDEX - 1))
+        "$MPV_WALLPAPER_SCRIPT" --chapter "$CHAPTER_NUMBER"
+    fi
+fi
