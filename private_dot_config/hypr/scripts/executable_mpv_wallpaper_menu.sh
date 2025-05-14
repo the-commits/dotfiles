@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
-VIDEO_PATH="$HOME/Video/Wallpapers/neon-city-music.webm"
-MPV_WALLPAPER_SCRIPT="$HOME/.config/hypr/scripts/mpv_wallpaper.sh"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source $SCRIPT_DIR/mpv_wallpaper_config.sh
 
+VIDEO_PATH=$WALLPAPER_1
 if [[ ! -f "$MPV_WALLPAPER_SCRIPT" ]]; then
     echo "Kunde inte hitta mpv_wallpaper.sh på: $MPV_WALLPAPER_SCRIPT" >&2
     exit 1
@@ -15,14 +16,12 @@ if [[ -z "$CHAPTERS_JSON" || "$CHAPTERS_JSON" == *"error"* ]]; then
 fi
 
 TITLES_ARRAY=$(echo "$CHAPTERS_JSON" | jq -r '.chapters[].tags.title')
-
 if [[ -z "$TITLES_ARRAY" ]]; then
     echo "Kunde inte extrahera några titlar." >&2
     exit 1
 fi
 
 SELECTED_TITLE=$(echo "$TITLES_ARRAY" | wofi --dmenu -p "Välj kapitel")
-
 if [[ -n "$SELECTED_TITLE" ]]; then
     CHAPTER_INDEX=$(echo "$TITLES_ARRAY" | awk -v title="$SELECTED_TITLE" '$0 == title {print NR; exit}')
 

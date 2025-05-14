@@ -1,26 +1,7 @@
 #!/usr/bin/env bash
 
-# === Konfiguration ===
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-VOLUME_FILE="$SCRIPT_DIR/.mpv_wallpaper_volume"
-MPV_SOCKET="/tmp/mpvpaper_socket"
-DEFAULT_VOLUME=50
-STEP=5
-DEFAULT_CHAPTER=0
-
-# === Paths & Displays ===
-DISPLAY_1="eDP-2"
-DISPLAY_2="HDMI-A-1"
-
-if $SCRIPT_DIR/check_connection.sh; then
-  # eDP Playlist
-  WALLPAPER_1="$HOME/Video/Wallpapers/neon-city-music.webm"
-  WALLPAPER_2="$HOME/Video/Wallpapers/spirit-tree.webm"
-else
-  WALLPAPER_1="$HOME/Video/Wallpapers/neon-city-music.webm"
-  WALLPAPER_2="$HOME/Video/Wallpapers/spirit-tree.webm"
-fi
-  
+source $SCRIPT_DIR/mpv_wallpaper_config.sh 
 
 # === Funktioner ===
 load_volume() {
