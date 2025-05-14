@@ -1,0 +1,9 @@
+[Unit]
+Description=Run disturbed-mode.sh for the-commits once after boot/login
+
+[Timer]
+OnBootSec=15min
+Unit=disturbed-mode.service
+
+[Install]
+WantedBy=timers.target
