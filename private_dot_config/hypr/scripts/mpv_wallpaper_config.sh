@@ -2,7 +2,7 @@
 
 # === Konfiguration ===
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-CACHE_DIR="$SCRIPT_DIR/.cache"
+CACHE_DIR="$HOME/.cache/mpv-wallpaper"
 VOLUME_FILE="$CACHE_DIR/.mpv_wallpaper_volume"
 INDEX_FILE="$CACHE_DIR/.mpv_wallpaper_index"
 MPV_WALLPAPER_SCRIPT="$SCRIPT_DIR/mpv_wallpaper.sh"
