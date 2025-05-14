@@ -1,0 +1,10 @@
+[Unit]
+Description=Run disturbed-mode.sh periodically (every 4h) for general state check
+
+[Timer]
+OnCalendar=*-*-* 00,04,08,12,16,20:00:00
+Persistent=true
+Unit=disturbed-mode.service
+
+[Install]
+WantedBy=timers.target
