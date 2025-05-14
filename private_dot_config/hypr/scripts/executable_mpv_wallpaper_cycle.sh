@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 config_file="$HOME/.config/hypr/scripts/mpv_wallpaper_config.sh"
-index_file="$HOME/.config/hypr/scripts/mpv_wallpaper_index"
 
 if [ -f "$config_file" ]; then
   source "$config_file"
@@ -23,8 +22,8 @@ if [ ${#video_files[@]} -eq 0 ]; then
 fi
 
 # Läs current_index från filen, om den finns
-if [ -f "$index_file" ]; then
-  current_index=$(cat "$index_file")
+if [ -f "$INDEX_FILE" ]; then
+  current_index=$(cat "$INDEX_FILE")
 else
   # Om filen inte finns, initiera current_index till 0
   current_index=0
@@ -42,7 +41,7 @@ next_wallpaper() {
     next_wallpaper_path="${video_files[$current_index]}"
 
     # Spara current_index till filen
-    echo "$current_index" > "$index_file"
+    echo "$current_index" > "$INDEX_FILE"
 
     "$SCRIPT_DIR/mpv_wallpaper.sh" --start "$next_wallpaper_path"
     echo "Current index: $current_index"
@@ -58,7 +57,7 @@ previous_wallpaper() {
     previous_wallpaper_path="${video_files[$current_index]}"
 
     # Spara current_index till filen
-    echo "$current_index" > "$index_file"
+    echo "$current_index" > "$INDEX_FILE"
 
     "$SCRIPT_DIR/mpv_wallpaper.sh" --start "$previous_wallpaper_path"
     echo "Current index: $current_index"

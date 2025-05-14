@@ -1,8 +1,7 @@
-i#!/usr/bin/env bash
+#!/usr/bin/env bash
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 config_file="$SCRIPT_DIR/mpv_wallpaper_config.sh"
-index_file="$SCRIPT_DIR/mpv_wallpaper_index"
 
 if [ -f "$config_file" ]; then
   source "$config_file"
@@ -14,15 +13,15 @@ fi
 video_dir="$VIDEO_WALLPAPER_DIR"
 video_files=($(find "$video_dir" -maxdepth 1 -type f \( -name "*.webm" -o -name "*.mp4" -o -name "*.mkv" \) -print0 | sort -z | tr '\0' '\n'))
 
-if [ ! -f "$index_file" ]; then
-  echo "Kunde inte hitta indexfilen: $index_file" >&2
+if [ ! -f "$INDEX_FILE" ]; then
+  echo "Kunde inte hitta indexfilen: $INDEX_FILE" >&2
   exit 1
 fi
 
-current_index=$(cat "$index_file")
+current_index=$(cat "$INDEX_FILE")
 
 if [[ -z "$current_index" || ! "$current_index" =~ ^[0-9]+$ ]]; then
-  echo "Ogiltigt index i: $index_file" >&2
+  echo "Ogiltigt index i: $INDEX_FILE" >&2
   exit 1
 fi
 

@@ -2,7 +2,6 @@
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 config_file="$SCRIPT_DIR/mpv_wallpaper_config.sh"
-index_file="$SCRIPT_DIR/mpv_wallpaper_index"
 
 if [ -f "$config_file" ]; then
   source "$config_file"
@@ -13,10 +12,10 @@ fi
 
 # Funktion för att hämta aktuell videofil från indexfilen
 get_current_video() {
-  if [ -f "$index_file" ]; then
-    current_index=$(cat "$index_file")
+  if [ -f "$INDEX_FILE" ]; then
+    current_index=$(cat "$INDEX_FILE")
     if [[ -z "$current_index" || ! "$current_index" =~ ^[0-9]+$ ]]; then
-      echo "Ogiltigt index i: $index_file" >&2
+      echo "Ogiltigt index i: $INDEX_FILE" >&2
       return 1
     fi
     video_dir="$VIDEO_WALLPAPER_DIR"
@@ -28,7 +27,7 @@ get_current_video() {
     echo "${video_files[$current_index]}"
     return 0
   else
-    echo "Kunde inte hitta indexfilen: $index_file" >&2
+    echo "Kunde inte hitta indexfilen: $INDEX_FILE" >&2
     return 1
   fi
 }
@@ -74,7 +73,7 @@ init() {
     wallpaper_1_arg="$start_wallpaper"
   fi
 
-  mpvpaper -o "--input-ipc-server=$MPV_SOCKET --volume=$VOLUME --panscan=1 --loop-playlist" \
+  mpvpaper -o "--input-ipc-server=$MPV_SOCKET  --volume=$VOLUME --panscan=1 --loop-playlist" \
     "$DISPLAY_1" "$wallpaper_1_arg" > /dev/null 2>&1 &
 
   mpvpaper -o "no-audio --panscan=1 --loop-playlist" \

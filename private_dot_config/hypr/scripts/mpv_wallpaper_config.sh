@@ -2,7 +2,9 @@
 
 # === Konfiguration ===
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-VOLUME_FILE="$SCRIPT_DIR/.mpv_wallpaper_volume"
+CACHE_DIR="$SCRIPT_DIR/.cache"
+VOLUME_FILE="$CACHE_DIR/.mpv_wallpaper_volume"
+INDEX_FILE="$CACHE_DIR/.mpv_wallpaper_index"
 MPV_WALLPAPER_SCRIPT="$SCRIPT_DIR/mpv_wallpaper.sh"
 WALLPAPER_DIR="$HOME/Video/Wallpapers"
 VIDEO_WALLPAPER_DIR="$WALLPAPER_DIR/Musikbakgrund"
@@ -20,8 +22,10 @@ HAZ_CONNECTION=$SCRIPT_DIR/check_connection.sh
 
 if $HAZ_CONNECTION; then
   WALLPAPER_1="$VIDEO_WALLPAPER_DIR/neon-city-music.webm"
-  WALLPAPER_2="$WALLPAPER_DIR/spirit-tree.webm"
+  WALLPAPER_2="https://www.youtube.com/watch?v=DtE5Y5VGkjU"
 else
   WALLPAPER_1="$VIDEO_WALLPAPER_DIR/neon-city-music.webm"
-  WALLPAPER_2="$WALLPAPER_DIR/spirit-tree.webm"
+  WALLPAPER_2="$WALLPAPER_DIR/short-spirit-tree.webm"
 fi
+
+mkdir -p $CACHE_DIR
