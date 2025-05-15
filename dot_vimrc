@@ -27,6 +27,10 @@ set timeoutlen=500
 set laststatus=2
 set statusline=\"%{expand('%:t')}\"\ %M\ line\ %l\ of\ %L\ --%P%%%%--\ col\ %c
 
+if has('clipboard')
+  set clipboard=unnamedplus
+endif
+
 " ================================================
 " ⌨️ Tangentbordsmappningar
 " ================================================
@@ -43,7 +47,7 @@ nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
 nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
 
 " Ladda om .vimrc
-nnoremap <leader>s :source $MYVIMRC \| :nohlsearch<CR>
+nnoremap <leader>s :source $MYVIMRC \| :nohlsearch<CR> \| :PlugInstall<CR>
 
 " Urklippshantering (om xclip finns)
 if executable('xclip')
@@ -83,6 +87,7 @@ set splitright
 " 🧪 Plugins (vim-plug)
 " ================================================
 call plug#begin()
+  Plug 'vim-vdebug/vdebug'
   Plug 'vimwiki/vimwiki'
   Plug 'artanikin/vim-synthwave84'
   Plug 'liuchengxu/vim-which-key'
@@ -91,6 +96,9 @@ call plug#begin()
   Plug 'tpope/vim-speeddating'
   Plug 'tpope/vim-repeat'
 call plug#end()
+
+" vdebug
+
 
 " ================================================
 " 🧩 Ladda funktioner från autoload
