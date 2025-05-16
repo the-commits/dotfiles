@@ -76,8 +76,8 @@ init() {
   mpvpaper -o "--input-ipc-server=$MPV_SOCKET  --volume=$VOLUME --panscan=1 --loop-playlist" \
     "$DISPLAY_1" "$wallpaper_1_arg" > /dev/null 2>&1 &
 
-  mpvpaper -o "no-audio --panscan=1 --loop-playlist" \
-    "$DISPLAY_2" "$WALLPAPER_2" > /dev/null 2>&1 &
+    mpvpaper -o "no-audio --panscan=1 --loop-playlist" \
+      "$DISPLAY_2" "$WALLPAPER_2" > /dev/null 2>&1 &
 }
 
 # === Argumenthantering ===
