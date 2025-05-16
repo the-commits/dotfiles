@@ -1,0 +1,60 @@
+#!/usr/bin/env php
+<?php
+
+function sanitize_filename_component($unsafeFilenameComponent){
+    $pattern = '/[^a-z0-9_-.()]+/i';
+    $sane_component = preg_replace($pattern, "", $unsafeFilenameComponent);
+    $sane_component = trim($sane_component, '');
+
+    return $sane_component;
+}
+
+if ($argc <= 1) {
+    echo "Användning: php " . basename(__FILE__) . " fil1.webm [fil2.webm ...] eller t.ex. ./*.webm\n";
+    exit(1);
+}
+
+for ($i = 1; $i < $argc; $i++) {
+    $original_full_path = $argv[$i];
+
+    if (!file_exists($original_full_path)) {
+        echo "Filen hittades inte: $original_full_path (hoppar över)\n";
+        continue;
+    }
+
+    if (is_dir($original_full_path)) {
+        echo "Är en katalog: $original_full_path (hoppar över)\n";
+        continue;
+    }
+
+    $dirname = dirname($original_full_path);
+    $filename_component = basename($original_full_path);
+
+    $sanitized_filename_component = sanitize_filename_component($filename_component);
+
+    if ($dirname === '.') {
+        $new_full_path = $sanitized_filename_component;
+    } else {
+        $new_full_path = $dirname . DIRECTORY_SEPARATOR . $sanitized_filename_component;
+    }
+
+    if (empty($sanitized_filename_component)) {
+        echo "Filnamnet blev tomt efter sanering för: $original_full_path (hoppar över)\n";
+        continue;
+    }
+
+    if ($sanitized_filename_component === '.' || $sanitized_filename_component === '..') {
+         echo "Sanerat filnamn är ogiltigt ('.' eller '..') för: $original_full_path (hoppar över)\n";
+        continue;
+    }
+
+
+    if ($original_full_path !== $new_full_path) {
+        echo "$original_full_path => $new_full_path\n";
+        if (!rename($original_full_path, $new_full_path)) {
+            echo "FEL: Kunde inte döpa om $original_full_path till $new_full_path\n";
+        }
+    } else {
+        echo "$original_full_path är redan korrekt (inget att göra).\n";
+    }
+}
