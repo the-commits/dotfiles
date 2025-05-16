@@ -31,10 +31,6 @@
         "active": " ",
       },
       "sort-by-number": true,
-      "persistent-workspaces": {
-        "*": 3, 
-        "HDMI-A-1": 4
-      },
     },
     "clock": {
       "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
