@@ -9,7 +9,6 @@ set number
 set relativenumber
 set ruler
 set hidden
-set tags=~/.vim/tags
 
 " ================================================
 " 🛠️ UI / Livskvalitet
@@ -101,6 +100,7 @@ let g:vimwiki_list = [{
       \ }]
 
 call plug#begin()
+  Plug 'ludovicchabant/vim-gutentags'
   Plug 'vim-vdebug/vdebug'
   Plug 'vimwiki/vimwiki'
   Plug 'artanikin/vim-synthwave84'
@@ -110,6 +110,25 @@ call plug#begin()
   Plug 'tpope/vim-speeddating'
   Plug 'tpope/vim-repeat'
 call plug#end()
+
+" ================================================
+" 🐃 Gutentags - Automatisk projekt-ctags
+" ================================================
+let g:gutentags_project_root = ['.git', '.svn', '.hg']
+let g:gutentags_ctags_executable = 'ctags' 
+let g:gutentags_generate_project_tags_file = 0
+let g:gutentags_project_tags_filename = ".tags"
+let g:gutentags_cache_dir = expand('~/.vim/projects')
+let g:gutentags_ctags_lang_options = {
+    \ 'php': '--fields=+aimS --languages=php --php-kinds=+cfivm',
+    \ 'javascript': '--fields=+aimS --javascript-kinds=+cfmpv',
+    \ 'sh': '--fields=+aimS --sh-kinds=+f',
+    \ }
+let g:gutentags_ctags_exclude_project_local = ['vendor', 'node_modules', '.git']
+let g:gutentags_debounce_milliseconds = 1000 
+let g:gutentags_generate_on_missing = 1
+let g:gutentags_generate_on_new = 1
+let g:gutentags_enabled_notify = 1
 
 " ================================================
 " 🧩 Ladda funktioner från autoload
@@ -165,3 +184,12 @@ function! s:UpdateVimConfigTagsSimple()
   endif
 endfunction
 
+" ================================================
+" 🔖 Generella Tagginställningar
+" ================================================
+" Sökväg för ctags-filer.
+" Gutentags kommer att lägga till sin projektspecifika fil FÖRST i denna lista.
+" './.tags' och './tags': Letar efter en lokal .tags- eller tags-fil.
+" 'tags': Letar efter en tags-fil i nuvarande katalog och uppåt (beroende på 'tagrelative').
+" '~/.vim/tags': Din globala Vim-konfigurations-tags.
+set tags=./.tags,./tags,tags,~/.vim/tags
