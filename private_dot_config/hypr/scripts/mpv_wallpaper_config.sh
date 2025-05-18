@@ -21,11 +21,11 @@ DISPLAY_2="HDMI-A-1"
 HAZ_CONNECTION=$SCRIPT_DIR/check_connection.sh
 
 if $HAZ_CONNECTION; then
-  WALLPAPER_1="$VIDEO_WALLPAPER_DIR/MEL-MU-IZ-JUAN-PABLO-DE-MENDON-A-EN-LA-CASITA.webm"
-  WALLPAPER_2="https://www.youtube.com/watch?v=DtE5Y5VGkjU"
+  WALLPAPER_1="$VIDEO_WALLPAPER_DIR/Gia-Fu-Women-in-Salsa-Records-Mainstream-Beyond.webm"
+  WALLPAPER_2="$WALLPAPER_DIR/short-pink-tree.webm"
 else
-  WALLPAPER_1="$VIDEO_WALLPAPER_DIR/MEL-MU-IZ-JUAN-PABLO-DE-MENDON-A-EN-LA-CASITA.webm"
-  WALLPAPER_2="$WALLPAPER_DIR/short-spirit-tree.webm"
+  WALLPAPER_1="$VIDEO_WALLPAPER_DIR/Gia-Fu-Women-in-Salsa-Records-Mainstream-Beyond.webm"
+  WALLPAPER_2="$WALLPAPER_DIR/short-pink-tree.webm"
 fi
 
 mkdir -p $CACHE_DIR
