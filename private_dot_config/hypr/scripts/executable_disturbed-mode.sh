@@ -3,7 +3,7 @@
 WORKING_HOUR_START="08:00"
 WORKING_HOUR_END="17:00"
 CURRENT_TIME=$(date +%H:%M)
-CURRENT_DAY=$(date +%w)
+CURRENT_DAY=$(date +%u)
 
 get_current_mode() {
   makoctl mode
