@@ -2,7 +2,7 @@
 <?php
 
 function sanitize_filename_component($unsafeFilenameComponent){
-    $pattern = '/[^a-z0-9_-.()]+/i';
+    $pattern = '/[^a-z0-9_.()-]+/i';
     $sane_component = preg_replace($pattern, "", $unsafeFilenameComponent);
     $sane_component = trim($sane_component, '');
 
