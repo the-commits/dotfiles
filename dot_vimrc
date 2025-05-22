@@ -100,6 +100,7 @@ let g:vimwiki_list = [{
       \ }]
 
 call plug#begin()
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'ludovicchabant/vim-gutentags'
   Plug 'vim-vdebug/vdebug'
   Plug 'vimwiki/vimwiki'
@@ -110,6 +111,59 @@ call plug#begin()
   Plug 'tpope/vim-speeddating'
   Plug 'tpope/vim-repeat'
 call plug#end()
+
+" ================================================
+" 🧠 Autocomplete med coc.nvim
+" https://github.com/neoclide/coc.nvim?tab=readme-ov-file#example-lua-configuration
+" ================================================
+set shortmess+=c
+set cmdheight=2
+set signcolumn=yes
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
+inoremap <expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" Mappningar för att gå till definition, referenser etc.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Använd <leader>rn för att byta namn på symbol (rename)
+nmap <leader>rn <Plug>(coc-rename)
+
+" Exempel på mappning för att visa diagnostik (fel och varningar)
+nmap <silent> <leader>dp <Plug>(coc-diagnostic-prev)
+nmap <silent> <leader>dn <Plug>(coc-diagnostic-next)
+
+" Fixa fel automatiskt med CocAction (t.ex. ESLint fix)
+nmap <leader>cf <Plug>(coc-codeaction-cursor)
 
 " ================================================
 " 🐃 Gutentags - Automatisk projekt-ctags

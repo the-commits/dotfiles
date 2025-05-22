@@ -1,4 +1,6 @@
 [default]
-path = "/usr/share/wallpapers/garuda-wallpapers/"
-transition-time = 600
-duration = '20 m'
+path = "~/Bilder/Wallpapers"
+transition-time = 4000
+duration = '1 m'
+
+[default.transition.bounce]

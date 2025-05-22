@@ -12,6 +12,7 @@ MPV_SOCKET="/tmp/mpvpaper_socket"
 DEFAULT_VOLUME=50
 STEP=5
 DEFAULT_CHAPTER=0
+WALLPAPER_ENGINE="mpvpaper"
 
 # === Paths & Displays ===
 DISPLAY_1="eDP-2"
