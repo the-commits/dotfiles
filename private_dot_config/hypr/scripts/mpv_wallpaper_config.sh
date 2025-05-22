@@ -21,10 +21,10 @@ DISPLAY_2="HDMI-A-1"
 HAZ_CONNECTION=$SCRIPT_DIR/check_connection.sh
 
 if $HAZ_CONNECTION; then
-  WALLPAPER_1="$VIDEO_WALLPAPER_DIR/Gia-Fu-Women-in-Salsa-Records-Mainstream-Beyond.webm"
+  WALLPAPER_1="$VIDEO_WALLPAPER_DIR/MusicforWorkDeepFutureGarageMixforConcentration.webm"
   WALLPAPER_2="$WALLPAPER_DIR/short-pink-tree.webm"
 else
-  WALLPAPER_1="$VIDEO_WALLPAPER_DIR/Gia-Fu-Women-in-Salsa-Records-Mainstream-Beyond.webm"
+  WALLPAPER_1="$VIDEO_WALLPAPER_DIR/MusicforWorkDeepFutureGarageMixforConcentration.webm"
   WALLPAPER_2="$WALLPAPER_DIR/short-pink-tree.webm"
 fi
 
